@@ -40,14 +40,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initial subtle hearts
     createHearts(8);
     
-    // Handle No button interaction
-    noBtn.addEventListener('mouseover', function() {
+    // Handle No button interaction - FIXED VERSION
+    function updateNoButtonMessage() {
         if (responseDiv.style.display === 'flex') return;
         
-        attempts++;
-        
-        // Change button text
-        const messageIndex = Math.min(attempts - 1, messages.length - 1);
+        // Get the current message index (0-6, then loop back to 0)
+        const messageIndex = attempts % messages.length;
         noBtn.textContent = messages[messageIndex];
         
         // Elegant movement (subtle, not jumpy)
@@ -56,26 +54,59 @@ document.addEventListener('DOMContentLoaded', function() {
             { x: -15, y: 15 },
             { x: 10, y: -15 },
             { x: -20, y: 10 },
-            { x: 15, y: -20 }
+            { x: 15, y: -20 },
+            { x: -10, y: 20 },
+            { x: 5, y: -5 }
         ];
         
-        const moveIndex = (attempts - 1) % movements.length;
+        const moveIndex = attempts % movements.length;
         noBtn.style.transform = `translate(${movements[moveIndex].x}px, ${movements[moveIndex].y}px)`;
         
         // Fade button slightly on many attempts
         if (attempts > 4) {
             noBtn.style.opacity = '0.9';
-        }
-        
-        // After several attempts, change button style
-        if (attempts >= 7) {
-            noBtn.textContent = "Yes?";
-            noBtn.style.background = 'linear-gradient(135deg, #af5a78 0%, #8a4360 100%)';
-            noBtn.style.color = 'white';
-            noBtn.style.borderColor = '#8a4360';
-            noBtn.style.transform = 'translate(0, 0)';
+        } else {
             noBtn.style.opacity = '1';
         }
+        
+        // Reset button style to normal
+        noBtn.style.background = 'transparent';
+        noBtn.style.color = '#8a8a8a';
+        noBtn.style.borderColor = '#d0d0d0';
+    }
+    
+    // Click handler for No button - FIXED
+    noBtn.addEventListener('click', function(event) {
+        event.preventDefault();
+        event.stopPropagation();
+        
+        if (responseDiv.style.display === 'flex') return;
+        
+        // Increment attempts (this will loop through messages)
+        attempts++;
+        
+        // Update the button text and position
+        updateNoButtonMessage();
+        
+        // If mouse is over button, also trigger hover effect
+        if (event.type === 'click') {
+            // Briefly change opacity to give feedback
+            noBtn.style.opacity = '0.8';
+            setTimeout(() => {
+                if (noBtn.style.opacity === '0.8') {
+                    noBtn.style.opacity = attempts > 4 ? '0.9' : '1';
+                }
+            }, 200);
+        }
+    });
+    
+    // Also update on hover for mobile devices
+    noBtn.addEventListener('touchstart', function(event) {
+        event.preventDefault();
+        if (responseDiv.style.display === 'flex') return;
+        
+        attempts++;
+        updateNoButtonMessage();
     });
     
     // Handle Yes button click
@@ -179,10 +210,22 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
     
-    // Reset button position when mouse leaves
+    // Reset button position when mouse leaves (optional, for desktop)
     noBtn.addEventListener('mouseleave', function() {
         setTimeout(() => {
             noBtn.style.transform = 'translate(0, 0)';
+            noBtn.style.opacity = attempts > 4 ? '0.9' : '1';
         }, 300);
     });
+    
+    // Initial setup for mobile - ensure button starts at "No"
+    function initializeNoButton() {
+        // Set initial text to "No" for first click
+        noBtn.textContent = "No";
+        // Reset attempts but increment on first click
+        attempts = -1; // Will become 0 on first click
+    }
+    
+    // Call initialization
+    initializeNoButton();
 });
