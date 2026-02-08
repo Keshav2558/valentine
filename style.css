@@ -1,0 +1,350 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Montserrat', sans-serif;
+    background: linear-gradient(135deg, #f8f5f2 0%, #f0ebe6 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    color: #3a3a3a;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(175, 90, 120, 0.1);
+}
+
+.header {
+    margin-bottom: 40px;
+}
+
+.floral-border {
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #af5a78, transparent);
+    margin: 20px auto;
+    width: 80%;
+}
+
+h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem;
+    font-weight: 500;
+    color: #af5a78;
+    margin: 30px 0;
+    letter-spacing: 1px;
+    line-height: 1.2;
+}
+
+.content {
+    margin: 50px 0;
+}
+
+.message {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    color: #5a5a5a;
+    margin-bottom: 60px;
+    font-weight: 300;
+}
+
+.message p {
+    margin: 15px 0;
+}
+
+.buttons {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    margin-top: 40px;
+    position: relative;
+    min-height: 120px;
+}
+
+.btn {
+    padding: 18px 50px;
+    font-size: 1.3rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    min-width: 160px;
+}
+
+.btn-yes {
+    background: linear-gradient(135deg, #af5a78 0%, #8a4360 100%);
+    color: white;
+    border: 1px solid #8a4360;
+}
+
+.btn-yes:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(175, 90, 120, 0.2);
+    background: linear-gradient(135deg, #8a4360 0%, #af5a78 100%);
+}
+
+.btn-no {
+    background: transparent;
+    color: #8a8a8a;
+    border: 1px solid #d0d0d0;
+}
+
+.btn-no:hover {
+    background: #f8f8f8;
+    color: #666;
+}
+
+.response {
+    display: none;
+    padding: 40px;
+    animation: fadeIn 1s ease;
+}
+
+.response h2 {
+    font-family: 'Cormorant Garamond', serif;
+    color: #af5a78;
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+}
+
+.response p {
+    font-size: 1.2rem;
+    color: #5a5a5a;
+    font-weight: 300;
+}
+
+.footer {
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+    color: #8a8a8a;
+    font-style: italic;
+}
+
+.floating-hearts {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: -1;
+}
+
+.heart {
+    position: absolute;
+    color: rgba(175, 90, 120, 0.1);
+    font-size: 20px;
+    opacity: 0;
+    animation: floatUp 15s linear infinite;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(100vh) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 0.1;
+    }
+    90% {
+        opacity: 0.1;
+    }
+    100% {
+        transform: translateY(-100px) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+@media (max-width: 768px) {
+    .card {
+        padding: 40px 25px;
+    }
+    
+    h1 {
+        font-size: 2.5rem;
+    }
+    
+    .buttons {
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+    }
+    
+    .btn {
+        width: 200px;
+        padding: 16px 40px;
+    }
+    
+    .message {
+        font-size: 1.1rem;
+    }
+}
+/* Panda Animation Styles */
+.response {
+    flex-direction: column;
+    align-items: center;
+    display: none;
+}
+
+.response h2 {
+    font-size: 3.5rem;
+    margin-bottom: 10px;
+    color: #af5a78;
+    animation: textPulse 2s infinite;
+}
+
+@keyframes textPulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+}
+
+.response p {
+    font-size: 1.4rem;
+    color: #5a5a5a;
+    margin-bottom: 30px;
+}
+
+.panda-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.panda {
+    position: relative;
+    width: 150px;
+    height: 180px;
+}
+
+/* Panda Head */
+.head {
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 100px;
+    background: white;
+    border-radius: 50%;
+    border: 3px solid #333;
+    z-index: 2;
+}
+
+/* Panda Ears */
+.ear {
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    background: #333;
+    border-radius: 50%;
+    top: -10px;
+}
+
+.left-ear {
+    left: 15px;
+}
+
+.right-ear {
+    right: 15px;
+}
+
+/* Panda Eyes */
+.eye {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    background: #333;
+    border-radius: 50%;
+    top: 35px;
+}
+
+.left-eye {
+    left: 25px;
+}
+
+.right-eye {
+    right: 25px;
+}
+
+/* Panda Nose */
+.nose {
+    position: absolute;
+    width: 15px;
+    height: 10px;
+    background: #333;
+    border-radius: 50%;
+    top: 55px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Panda Mouth */
+.mouth {
+    position: absolute;
+    width: 30px;
+    height: 15px;
+    border-bottom: 3px solid #333;
+    border-radius: 0 0 15px 15px;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+/* Panda Body */
+.body {
+    position: absolute;
+    top: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 120px;
+    height: 100px;
+    background: white;
+    border-radius: 60px 60px 40px 40px;
+    border: 3px solid #333;
+    z-index: 1;
+}
+
+/* Panda Arms */
+.arm {
+    position: absolute;
+    width: 25px;
+    height: 60px;
+    background: #333;
+    border-radius: 12px;
+    top: -10px;
+}
+
+.left-arm {
+    left: 10px;
+    transform-origin: top center;
+}
+
+.right-arm {
+    right: 10px;
+    transform-origin: top center;
+}
