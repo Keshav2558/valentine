@@ -60,7 +60,59 @@
         
         <div class="floating-hearts"></div>
     </div>
+        <!-- Music Player Section - ADD THIS BEFORE </body> -->
+    <audio id="backgroundMusic" loop style="display: none;">
+        <!-- Your personal song -->
+        <source src="./our-song.mp3" type="audio/mpeg">
+        <!-- Fallback romantic song -->
+        <source src="https://assets.mixkit.co/music/preview/mixkit-a-very-romantic-song-497.mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
+    
+    <div class="music-control">
+        <button id="musicToggle" class="music-btn">
+            <i class="fas fa-play"></i>
+        </button>
+    </div>
+    <!-- Debug info -->
+<div id="debug" style="display: none; position: fixed; top: 10px; left: 10px; background: rgba(0,0,0,0.7); color: white; padding: 10px; border-radius: 5px; font-size: 12px; z-index: 9999;"></div>
+
+<script>
+// Debug: Check if music file is accessible
+window.addEventListener('load', function() {
+    const debugDiv = document.getElementById('debug');
+    const musicFile = './our-song.mp3';
+    
+    // Test if file exists
+    fetch(musicFile)
+        .then(response => {
+            if (response.ok) {
+                debugDiv.innerHTML = '✓ Music file found';
+                debugDiv.style.background = 'rgba(0,200,0,0.7)';
+            } else {
+                debugDiv.innerHTML = '✗ Music file not found (404)';
+                debugDiv.style.background = 'rgba(200,0,0,0.7)';
+            }
+            debugDiv.style.display = 'block';
+            
+            // Hide after 5 seconds
+            setTimeout(() => {
+                debugDiv.style.display = 'none';
+            }, 5000);
+        })
+        .catch(error => {
+            debugDiv.innerHTML = '✗ Cannot access music file: ' + error.message;
+            debugDiv.style.background = 'rgba(200,0,0,0.7)';
+            debugDiv.style.display = 'block';
+            
+            setTimeout(() => {
+                debugDiv.style.display = 'none';
+            }, 5000);
+        });
+});
+</script>
     
     <script src="script.js"></script>
+    
 </body>
 </html>
